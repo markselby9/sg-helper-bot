@@ -1,0 +1,20 @@
+{
+  // Cloudflare Worker config for sg-helper-bot.
+  // Deploy: `bun run deploy`. Secrets (ANTHROPIC_API_KEY, TELEGRAM_BOT_TOKEN,
+  // TELEGRAM_WEBHOOK_SECRET) are set via `wrangler secret put <NAME>`, never here.
+  "name": "sg-helper-bot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "kv_namespaces": [
+    // Create with: `wrangler kv namespace create USERS`, then paste the id here.
+    { "binding": "USERS", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }
+  ],
+  "vars": {
+    // Non-secret config. Burmese stays disabled until a native reader validates
+    // the rule-card translations (see docs/design.md).
+    "ENABLE_BURMESE": "false",
+    "DAILY_MESSAGE_LIMIT": "20"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "sg-helper-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A helper-facing Telegram bot that explains confusing English documents and MOM rules to Singapore migrant domestic workers, in their own language.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check src test",
+    "format": "biome format --write src test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@cloudflare/workers-types": "^4.20260101.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "wrangler": "^3.90.0"
+  }
+}

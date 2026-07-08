@@ -1,0 +1,5 @@
+# Copy to `.dev.vars` for local `wrangler dev`. Never commit `.dev.vars`.
+ANTHROPIC_API_KEY=sk-ant-...
+TELEGRAM_BOT_TOKEN=123456:ABC-your-botfather-token
+# Random string you also pass to Telegram's setWebhook secret_token param.
+TELEGRAM_WEBHOOK_SECRET=change-me-to-a-long-random-string
