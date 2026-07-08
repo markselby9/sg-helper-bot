@@ -38,14 +38,8 @@ async function handleMessage(msg: TgMessage, env: Env, tg: Telegram): Promise<vo
   const hasPhoto = Boolean(msg.photo && msg.photo.length > 0);
   if (!text && !hasPhoto) return;
 
-  const rate = await consume(env, userId);
-  if (!rate.allowed) {
-    await tg.sendMessage(chatId, t(lang).rateLimited);
-    return;
-  }
-
-  const card = text ? bestMatch(text) : undefined;
-
+  // Fetch the photo (free) before spending quota, so an unreadable photo never
+  // burns a message. The daily cap sits directly in front of the AI call.
   let imageBase64: string | undefined;
   if (hasPhoto && msg.photo) {
     const largest = msg.photo[msg.photo.length - 1];
@@ -59,6 +53,13 @@ async function handleMessage(msg: TgMessage, env: Env, tg: Telegram): Promise<vo
     }
   }
 
+  const rate = await consume(env, userId);
+  if (!rate.allowed) {
+    await tg.sendMessage(chatId, t(lang).rateLimited);
+    return;
+  }
+
+  const card = text ? bestMatch(text) : undefined;
   await respond(chatId, lang, env, tg, { userText: text || undefined, imageBase64, card });
 }
 
